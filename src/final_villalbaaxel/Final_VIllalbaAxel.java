@@ -6,65 +6,28 @@ package final_villalbaaxel;
 import java.util.Scanner;
 public class Final_VIllalbaAxel {
 
+ public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        // Crear una farmacia
-        System.out.print("Ingrese el nombre de la farmacia: ");
-        String nombreFarmacia = scanner.nextLine();
-        Farmacia farmacia = new Farmacia(nombreFarmacia);
+        // Crear una farmacia con un nombre
+        Farmacia farmacia = new Farmacia("Farmacia San José");
 
-        boolean continuar = true;
-        while (continuar) {
-            System.out.println("\nOpciones disponibles:");
-            System.out.println("1. Agregar fármaco");
-            System.out.println("2. Buscar fármaco por ID");
-            System.out.println("3. Actualizar fármaco");
-            System.out.println("4. Eliminar fármaco");
-            System.out.println("5. Mostrar todos los fármacos");
-            System.out.println("6. Guardar fármacos");
-            System.out.println("7. Cargar fármacos");
-            System.out.println("8. Exportar fármacos a TXT");
-            System.out.println("9. Salir");
-            System.out.print("Ingrese su opción: ");
-            int opcion = Integer.parseInt(scanner.nextLine());
+        // Crear un objeto FarmaciaGestion para gestionar la farmacia
+        FarmaciaGestion gestion = new FarmaciaGestion();
 
-            switch (opcion) {
-                case 1:
-                    farmacia.agregarFarmaco();
-                    break;
-                case 2:
-                    farmacia.obtenerFarmaco();
-                    break;
-                case 3:
-                    farmacia.actualizarFarmaco();
-                    break;
-                case 4:
-                    farmacia.eliminarFarmaco();
-                    break;
-                case 5:
-                    farmacia.mostrarFarmacos();
-                    break;
-                case 6:
-                    farmacia.guardarFarmacos();
-                    break;
-                case 7:
-                    farmacia.cargarFarmacos();
-                    break;
-                case 8:
-                    farmacia.exportarFarmacos();
-                    break;
-                case 9:
-                    continuar = false;
-                    System.out.println("¡Hasta luego!");
-                    break;
-                default:
-                    System.out.println("Opción inválida.");
-            }
+        // Gestionar la farmacia
+        farmacia.gestionarMedicamentos(gestion);
+
+        // Agregar un medicamento manualmente
+        Farmaco antidep = new Antidepresivo("Fluoxetina", 100.0, 20.0, 15, Antidepresivo.Tipo.SINTOMÁTICO, "Somnolencia");
+        farmacia.agregarMedicamento(antidep);
+
+        // Agregar otro medicamento
+        Farmaco ansiol = new Ansiolitico("Alprazolam", 150.0, 0.5, 20, Ansiolitico.Dependencia.ALTA, true);
+        farmacia.agregarMedicamento(ansiol);
+
+        // Mostrar todos los medicamentos
+        for (Medicamento m : farmacia.getMedicamentos()) {
+            m.mostrarInfo();
         }
-
-        scanner.close();
     }
-}
-
 }

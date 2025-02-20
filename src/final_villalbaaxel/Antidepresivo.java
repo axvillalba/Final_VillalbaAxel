@@ -1,19 +1,23 @@
 
 package final_villalbaaxel;
 
+public class Antidepresivo extends Farmaco{
+    public enum Tipo {
+        SINTOMÁTICO, REPARADOR, NEUROPROTECTOR;
+    }
 
-public class Antidepresivo extends Farmaco {
-    private TipoAntidepresivo tipo;
-    private String efectosSecundarios;
+    private Tipo tipo;
+    private String efectoSecundario;
 
-    public Antidepresivo(String id, String codigoBarra, String monodroga, double precio, double dosis, int cantidadCajas, TipoAntidepresivo tipo, String efectosSecundarios) {
-        super(monodroga, precio, dosis, cantidadCajas);
+    public Antidepresivo(String monodroga, double precio, double dosis, int cantidad, Tipo tipo, String efectoSecundario) {
+        super(monodroga, precio, dosis, cantidad);
         this.tipo = tipo;
-        this.efectosSecundarios = efectosSecundarios;
+        this.efectoSecundario = efectoSecundario;
     }
 
     @Override
-    public void mostrarDetalles() {
-        System.out.println("Antidepresivo: " + getMonodroga() + ", Tipo: " + tipo + ", Efectos Secundarios: " + efectosSecundarios);
+    public void mostrarInfo() {
+        System.out.println("Antidepresivo: Monodroga: " + monodroga + " - Precio: " + precio + " - Dosis: " + dosis + "mg - Cantidad: " + cantidad);
+        System.out.println("Tipo: " + tipo + " - Efecto Secundario: " + efectoSecundario);
     }
 }

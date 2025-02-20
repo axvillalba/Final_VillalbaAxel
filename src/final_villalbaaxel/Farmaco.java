@@ -2,54 +2,48 @@
 package final_villalbaaxel;
 
 
-import java.io.Serializable;
+public abstract class Farmaco {
+    protected String monodroga;  // Solo la monodroga, sin nombre comercial
+    protected double precio;
+    protected double dosis;
+    protected int cantidad;
 
-public abstract class Farmaco implements Serializable {
-    private String monodroga; // Monodroga
-    private double precio; // Precio
-    private double dosis; // Dosis
-    private int cantidadCajas; // Cantidad de cajas
-
-    public Farmaco(String monodroga, double precio, double dosis, int cantidadCajas) {
+    // Constructor
+    public Farmaco(String monodroga, double precio, double dosis, int cantidad) {
         this.monodroga = monodroga;
         this.precio = precio;
         this.dosis = dosis;
-        this.cantidadCajas = cantidadCajas;
+        this.cantidad = cantidad;
     }
 
-    // Métodos getter y setter
+    // Getters y setters con validaciones
     public String getMonodroga() {
         return monodroga;
     }
 
-    public void setMonodroga(String monodroga) {
-        this.monodroga = monodroga;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
     public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public double getDosis() {
-        return dosis;
+        if (precio > 0) {
+            this.precio = precio;
+        } else {
+            System.out.println("Precio no válido.");
+        }
     }
 
     public void setDosis(double dosis) {
-        this.dosis = dosis;
+        if (dosis > 0) {
+            this.dosis = dosis;
+        } else {
+            System.out.println("Dosis no válida.");
+        }
     }
 
-    public int getCantidadCajas() {
-        return cantidadCajas;
+    public void setCantidad(int cantidad) {
+        if (cantidad >= 0) {
+            this.cantidad = cantidad;
+        } else {
+            System.out.println("Cantidad no válida.");
+        }
     }
 
-    public void setCantidadCajas(int cantidadCajas) {
-        this.cantidadCajas = cantidadCajas;
-    }
-
-    // Método abstracto que deben implementar las clases derivadas
-    public abstract void mostrarDetalles();
+    public abstract void mostrarInfo();  // Método abstracto para mostrar la información específica de cada tipo de medicamento
 }
