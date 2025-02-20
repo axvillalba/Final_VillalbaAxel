@@ -6,7 +6,7 @@ public class Ansiolitico extends Farmaco {
     private boolean trazabilidad;
 
     public Ansiolitico(String id, String codigoBarra, String monodroga, double precio, double dosis, int cantidadCajas, boolean dependencia, boolean trazabilidad) {
-        super(id, codigoBarra, monodroga, precio, dosis, cantidadCajas);
+        super( monodroga, precio, dosis, cantidadCajas);
         this.dependencia = dependencia;
         this.trazabilidad = trazabilidad;
     }

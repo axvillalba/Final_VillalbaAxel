@@ -7,7 +7,7 @@ public class Antidepresivo extends Farmaco {
     private String efectosSecundarios;
 
     public Antidepresivo(String id, String codigoBarra, String monodroga, double precio, double dosis, int cantidadCajas, TipoAntidepresivo tipo, String efectosSecundarios) {
-        super(id, codigoBarra, monodroga, precio, dosis, cantidadCajas);
+        super(monodroga, precio, dosis, cantidadCajas);
         this.tipo = tipo;
         this.efectosSecundarios = efectosSecundarios;
     }
