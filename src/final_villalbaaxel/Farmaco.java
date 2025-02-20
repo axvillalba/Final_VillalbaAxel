@@ -5,16 +5,12 @@ package final_villalbaaxel;
 import java.io.Serializable;
 
 public abstract class Farmaco implements Serializable {
-    private String id; // ID del fármaco
-    private String codigoBarra; // Código de barra
     private String monodroga; // Monodroga
     private double precio; // Precio
     private double dosis; // Dosis
     private int cantidadCajas; // Cantidad de cajas
 
-    public Farmaco(String id, String codigoBarra, String monodroga, double precio, double dosis, int cantidadCajas) {
-        this.id = id;
-        this.codigoBarra = codigoBarra;
+    public Farmaco(String monodroga, double precio, double dosis, int cantidadCajas) {
         this.monodroga = monodroga;
         this.precio = precio;
         this.dosis = dosis;
@@ -22,22 +18,6 @@ public abstract class Farmaco implements Serializable {
     }
 
     // Métodos getter y setter
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCodigoBarra() {
-        return codigoBarra;
-    }
-
-    public void setCodigoBarra(String codigoBarra) {
-        this.codigoBarra = codigoBarra;
-    }
-
     public String getMonodroga() {
         return monodroga;
     }
