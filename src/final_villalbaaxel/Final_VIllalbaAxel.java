@@ -6,10 +6,9 @@ package final_villalbaaxel;
 import java.util.Scanner;
 public class Final_VIllalbaAxel {
 
- public class Main {
     public static void main(String[] args) {
         // Crear una farmacia con un nombre
-        Farmacia farmacia = new Farmacia("Farmacia San José");
+        Farmacia farmacia = new Farmacia("Farmacia UTN Salud");
 
         // Crear un objeto FarmaciaGestion para gestionar la farmacia
         FarmaciaGestion gestion = new FarmaciaGestion();
@@ -26,8 +25,9 @@ public class Final_VIllalbaAxel {
         farmacia.agregarMedicamento(ansiol);
 
         // Mostrar todos los medicamentos
-        for (Medicamento m : farmacia.getMedicamentos()) {
-            m.mostrarInfo();
+        for (Farmaco farmaco : farmacia.getMedicamentos()) {
+                  farmaco.mostrarInfo();
         }
     }
 }
+

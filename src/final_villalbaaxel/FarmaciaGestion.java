@@ -36,8 +36,8 @@ public class FarmaciaGestion {
     // Método para eliminar un medicamento de la farmacia
     public void eliminarMedicamento(Farmacia farmacia, int index) {
         if (index >= 0 && index < farmacia.getMedicamentos().size()) {
-            Medicamento medicamento = farmacia.getMedicamentos().remove(index);
-            System.out.println("Medicamento eliminado: " + medicamento.getMonodroga());
+            Farmaco farmaco = farmacia.getMedicamentos().remove(index);
+            System.out.println("Medicamento eliminado: " + farmaco.getMonodroga());
         } else {
             System.out.println("Índice no válido. No se pudo eliminar el medicamento.");
         }
@@ -49,8 +49,8 @@ public class FarmaciaGestion {
             System.out.println("No hay medicamentos en el inventario.");
         } else {
             System.out.println("Medicamentos en el inventario de la farmacia " + farmacia.getNombre() + ":");
-            for (Medicamento medicamento : farmacia.getMedicamentos()) {
-                medicamento.mostrarInfo();
+            for (Farmaco farmaco : farmacia.getMedicamentos()) {
+                farmaco.mostrarInfo();
             }
         }
     }
@@ -60,8 +60,8 @@ public class FarmaciaGestion {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("medicamentos.txt"))) {
             writer.write("Inventario de Medicamentos en la farmacia: " + farmacia.getNombre() + "\n");
             writer.write("--------------------------------------------\n");
-            for (Medicamento medicamento : farmacia.getMedicamentos()) {
-                medicamento.mostrarInfo();
+            for (Farmaco farmaco : farmacia.getMedicamentos()) {
+                farmaco.mostrarInfo();
                 writer.write("\n");
             }
             System.out.println("Medicamentos exportados a 'medicamentos.txt'");
@@ -77,10 +77,10 @@ public class FarmaciaGestion {
     Farmaco medicamentoEncontrado = null; // Variable para almacenar el medicamento encontrado
 
     while (i < medicamentos.size()) { // Usamos while en lugar de for
-        Farmaco medicamento = medicamentos.get(i); // Obtener el medicamento en el índice i
-        if (medicamento.getMonodroga().equalsIgnoreCase(monodroga)) {
-            medicamentoEncontrado = medicamento; // Si se encuentra, almacenamos el medicamento
-            medicamento.mostrarInfo(); // Mostramos la información
+        Farmaco farmaco = medicamentos.get(i); // Obtener el medicamento en el índice i
+        if (farmaco.getMonodroga().equalsIgnoreCase(monodroga)) {
+            medicamentoEncontrado = farmaco; // Si se encuentra, almacenamos el medicamento
+            farmaco.mostrarInfo(); // Mostramos la información
             break; // Salimos del bucle una vez que encontramos el medicamento
         }
         i++; // Incrementamos el índice
