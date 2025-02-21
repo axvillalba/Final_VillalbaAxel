@@ -1,9 +1,7 @@
 package final_villalbaaxel;
   
 public class Ansiolitico extends Farmaco {
-    public enum Dependencia {
-        BAJA, MEDIA, ALTA;
-    }
+
 
     private Dependencia dependencia;
     private boolean trazabilidad;

@@ -2,14 +2,12 @@
 package final_villalbaaxel;
 
 public class Antidepresivo extends Farmaco{
-    public enum Tipo {
-        SINTOMÁTICO, REPARADOR, NEUROPROTECTOR;
-    }
 
-    private Tipo tipo;
+
+    private TipoAntidepresivo tipo;
     private String efectoSecundario;
 
-    public Antidepresivo(String monodroga, double precio, double dosis, int cantidad, Tipo tipo, String efectoSecundario) {
+    public Antidepresivo(String monodroga, double precio, double dosis, int cantidad, TipoAntidepresivo tipo, String efectoSecundario) {
         super(monodroga, precio, dosis, cantidad);
         this.tipo = tipo;
         this.efectoSecundario = efectoSecundario;
