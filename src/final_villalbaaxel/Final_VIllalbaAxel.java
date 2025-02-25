@@ -1,7 +1,7 @@
 package final_villalbaaxel;
 import java.util.Scanner;
 
-public class Final_VillalbaAxel {
+public class Final_VIllalbaAxel {
 
     public static void main(String[] args) {
         // Crear una farmacia con un nombre
@@ -119,3 +119,13 @@ public class Final_VillalbaAxel {
     }
 }
 
+/*
+gestion.buscarMedicamentoPorCodigo(farmacia, codigo)  -- 
+gestion.consultarMedicamento(farmacia, codigoConsultar) --
+gestion.listarMedicamentos(farmacia) --
+gestion.eliminarMedicamento(farmacia, codigoEliminar) --
+gestion.modificarMedicamento(farmacia, codigoModificar) --
+
+
+
+*/
