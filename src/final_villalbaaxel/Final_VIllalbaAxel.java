@@ -9,14 +9,11 @@ public class Final_VillalbaAxel {
                   Farmacia farmacia = new Farmacia("Farmacia UTN Salud");
 
                   // Crear un objeto FarmaciaGestion para gestionar la farmacia
-                  FarmaciaGestion gestion = new FarmaciaGestion();
-        
+                  FarmaciaGestion gestion = new FarmaciaGestion();        
                   Scanner scanner = new Scanner(System.in);
                   int opcion = -1;
-
                   // Inicializar medicamentos predeterminados
                   inicializarMedicamentos(farmacia, gestion);
-
                   // Menú de gestión de productos
                   do {
                           // Mostrar el menú
@@ -29,10 +26,8 @@ public class Final_VillalbaAxel {
                            System.out.println("0. Salir");
                            System.out.print("Seleccione una opción: ");
 
-                           // Validar que la entrada sea un número entero
-                        
+                           // Validar que la entrada sea un número entero                        
                           boolean entradaValida = false;
-
                             // Bucle para asegurar que se ingrese un número entero válido
                           while (!entradaValida) {
                                     try {
@@ -114,14 +109,11 @@ public class Final_VillalbaAxel {
                           if (!farmacia.codigoExiste(codigo)) {
                                    break;  // El código es único, salir del bucle
                           } else {
-                                   System.out.println("Error: El código " + codigo + " ya está en uso. Ingrese un código único.");
-                  
+                                   System.out.println("Error: El código " + codigo + " ya está en uso. Ingrese un código único.");                  
                           }
                  }
                   return codigo;
         }
-
-
 
          // Método para modificar un medicamento
          private static void modificarMedicamento(Farmacia farmacia, FarmaciaGestion gestion, Scanner scanner) {
