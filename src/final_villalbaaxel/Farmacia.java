@@ -37,22 +37,23 @@ public class Farmacia {
         gestion.gestionarFarmacia(this);
     }
 
-    // Método para agregar medicamento con validación de duplicados
-    public void agregarMedicamento(Farmaco farmaco) {
-        // Validación para evitar duplicados
-        boolean exists = false;
-        for (Farmaco f : farmacos) {
-            if (f.equals(farmaco)) {
-                exists = true;
-                break;
+    // Método para agregar un medicamento solo si el código no existe
+        public void agregarMedicamento(Farmaco medicamento) {
+            if (codigoExiste(medicamento.getCodigo())) {
+                System.out.println("Error: El código " + medicamento.getCodigo() + " ya está en uso.");
+            } else {
+                farmacos.add(medicamento);
+                System.out.println("Medicamento agregado: " + medicamento.getCodigo());
             }
         }
 
-        if (!exists) {
-            farmacos.add(farmaco);
-            System.out.println("Medicamento agregado: " + farmaco.getMonodroga());
-        } else {
-            System.out.println("Medicamento ya existe en el inventario.");
-        }
-    }
+        // Método para verificar si un código ya existe en la lista de medicamentos
+         public boolean codigoExiste(String codigo) {
+                for (Farmaco medicamento : farmacos) {
+                    if (medicamento.getCodigo().equals(codigo)) {
+                        return true;  // El código ya existe
+                    }
+                }
+                return false;  // El código no existe
+            }
 }

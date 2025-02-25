@@ -1,173 +1,302 @@
 package final_villalbaaxel;
-
 import java.util.*;
+import javax.xml.transform.sax.SAXSource;
 
 public class FarmaciaGestion {
 
-        // Método para gestionar la farmacia y mostrar sus medicamentos
-        public void gestionarFarmacia(Farmacia farmacia) {
-            System.out.println("Gestionando la farmacia: " + farmacia.getNombre());
-            mostrarMedicamentos(farmacia);
+         // Método para gestionar la farmacia y mostrar sus medicamentos
+         public void gestionarFarmacia(Farmacia farmacia) {
+                  System.out.println("Gestionando la farmacia: " + farmacia.getNombre());
+                  mostrarMedicamentos(farmacia);
         }
 
-        // Método para agregar un medicamento a la farmacia
-        public void agregarMedicamento(Farmacia farmacia, Farmaco medicamento) {
-            if (!farmacia.getMedicamentos().contains(medicamento)) {
-                farmacia.getMedicamentos().add(medicamento);
-                System.out.println("Medicamento agregado: " + medicamento.getMonodroga());
-            } else {
-                System.out.println("Este medicamento ya existe en el inventario.");
-            }
+         // Método para agregar un medicamento a la farmacia
+         public void agregarMedicamento(Farmacia farmacia, Farmaco medicamento) {
+                  if (!farmacia.getMedicamentos().contains(medicamento)) {
+                          farmacia.getMedicamentos().add(medicamento);
+                          System.out.println("Medicamento agregado: " + medicamento.getMonodroga());
+                  } else {
+                          System.out.println("Este medicamento ya existe en el inventario.");
+                  }
         }
 
-        // Método para obtener los datos de un medicamento
-        public Farmaco obtenerDatosMedicamento(Scanner scanner) {
-            System.out.print("Ingrese la monodroga: ");
-            String monodroga = scanner.nextLine();
-            System.out.print("Ingrese el precio: ");
-            double precio = scanner.nextDouble();
-            System.out.print("Ingrese la dosis (mg): ");
-            double dosis = scanner.nextDouble();
-            System.out.print("Ingrese la cantidad: ");
-            int cantidad = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
-
-            // Preguntar tipo de medicamento y crear según corresponda
-            System.out.println("Seleccione el tipo de medicamento:");
-            System.out.println("1. Antidepresivo");
-            System.out.println("2. Ansiolitico");
-            System.out.println("3. Antiepileptico");
-            int tipoMedicamento = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
-
-            // Crear según tipo
-            Farmaco nuevoMedicamento = null;
-            switch (tipoMedicamento) {
-                case 1:
-                    nuevoMedicamento = crearAntidepresivo(monodroga, precio, dosis, cantidad, scanner);
-                    break;
-                case 2:
-                    nuevoMedicamento = crearAnsiolitico(monodroga, precio, dosis, cantidad, scanner);
-                    break;
-                case 3:
-                    nuevoMedicamento = crearAntiepileptico(monodroga, precio, dosis, cantidad, scanner);
-                    break;
-                default:
-                    System.out.println("Tipo de medicamento no válido.");
-                    break;
-            }
-            return nuevoMedicamento;
+         // Método para buscar un medicamento por su código
+         public Farmaco buscarMedicamentoPorCodigo(Farmacia farmacia, String codigo) {
+                  for (Farmaco medicamento : farmacia.getMedicamentos()) {
+                          if (medicamento.getCodigo().equals(codigo)) {
+                                   return medicamento;
+                          }
+                  }
+                  return null; // No encontrado
         }
 
-        // Métodos para crear tipos específicos de medicamentos
-        private Farmaco crearAntidepresivo(String monodroga, double precio, double dosis, int cantidad, Scanner scanner) {
-            // Datos específicos para antidepresivo
-            System.out.println("Seleccione el tipo de antidepresivo:");
-            System.out.println("1. ISRS");
-            System.out.println("2. ISRN");
-            System.out.println("3. IMAO");
-            TipoAntidepresivo tipoAntidepresivo = seleccionarTipoAntidepresivo(scanner);
-            System.out.print("Ingrese el efecto secundario: ");
-            String efectoSecundario = scanner.nextLine();
-            return new Antidepresivo(monodroga, precio, dosis, cantidad, tipoAntidepresivo, efectoSecundario);
+         // Método para modificar un medicamento
+         public void modificarMedicamento(Farmacia farmacia, String codigoModificar) {
+                  Farmaco medicamentoExistente = buscarMedicamentoPorCodigo(farmacia, codigoModificar);
+                  if (medicamentoExistente != null) {
+                  // Eliminar el medicamento existente
+                          this.eliminarMedicamento(farmacia,codigoModificar);
+                          // Pedir los nuevos datos y crear el nuevo medicamento
+                          Scanner scanner = new Scanner(System.in);
+                          System.out.println("Modificar medicamento: " + medicamentoExistente.getMonodroga());
+                          Farmaco nuevoMedicamento = obtenerDatosMedicamento(scanner, farmacia,codigoModificar);
+                          // Agregar el nuevo medicamento a la farmacia
+                          farmacia.agregarMedicamento(nuevoMedicamento);
+                          System.out.println("Medicamento modificado exitosamente.");
+                  } else {
+                          System.out.println("Medicamento con código " + codigoModificar + " no encontrado.");
+                  }
+         }
+
+
+        // Método para eliminar un medicamento
+         public void eliminarMedicamento(Farmacia farmacia, String codigoEliminar) {
+                  Farmaco medicamento = buscarMedicamentoPorCodigo(farmacia, codigoEliminar);
+                  if (medicamento != null) {
+                          farmacia.getMedicamentos().remove(medicamento);
+                          System.out.println("Medicamento " + medicamento.getMonodroga() + " eliminado.");
+                  } else {
+                          System.out.println("Medicamento con código " + codigoEliminar + " no encontrado.");
+                  }
         }
 
-        private Farmaco crearAnsiolitico(String monodroga, double precio, double dosis, int cantidad, Scanner scanner) {
-            // Datos específicos para ansiolítico
-            System.out.println("Seleccione el nivel de dependencia:");
-            System.out.println("1. ALTA");
-            System.out.println("2. MEDIA");
-            System.out.println("3. BAJA");
-            Dependencia dependencia = seleccionarDependencia(scanner);
-            System.out.print("¿Es trazable? (true/false): ");
-            boolean trazabilidad = scanner.nextBoolean();
-            return new Ansiolitico(monodroga, precio, dosis, cantidad, dependencia, trazabilidad);
-        }
+         // Método para listar todos los medicamentos
+         public void listarMedicamentos(Farmacia farmacia) {
+                  if (farmacia.getMedicamentos().isEmpty()) {
+                          System.out.println("No hay medicamentos en el inventario.");
+                  } else {
+                          System.out.println("Lista de medicamentos en la farmacia " + farmacia.getNombre() + ":");
+                          for (Farmaco farmaco : farmacia.getMedicamentos()) {
+                                   farmaco.mostrarInfo();
+                          }
+                  }
+         }
 
-        private Farmaco crearAntiepileptico(String monodroga, double precio, double dosis, int cantidad, Scanner scanner) {
-            // Datos específicos para antiepiléptico
-            System.out.println("Seleccione la clasificación de antiepiléptico:");
-            System.out.println("1. CARBOXAMIDAS");
-            System.out.println("2. TRIAZINAS");
-            ClasificacionAntiepileptico clasificacion = seleccionarClasificacionAntiepileptico(scanner);
-            System.out.println("Seleccione el tipo de receta:");
-            System.out.println("1. CONTROLADA");
-            System.out.println("2. NO_CONTROLADA");
-            TipoReceta tipoReceta = seleccionarTipoReceta(scanner);
-            return new Antiepileptico(monodroga, precio, dosis, cantidad, clasificacion, tipoReceta);
-        }
+        // Método para consultar un medicamento por código
+         public void consultarMedicamento(Farmacia farmacia, String codigoConsultar) {
+                  Farmaco medicamento = buscarMedicamentoPorCodigo(farmacia, codigoConsultar);
+                  if (medicamento != null) {
+                          System.out.println("Consulta del medicamento: ");
+                          medicamento.mostrarInfo();
+                  } else {
+                          System.out.println("Medicamento con código " + codigoConsultar + " no encontrado.");
+                  }
+         }
 
-        // Métodos para seleccionar enumeraciones
+         // Método para obtener los datos de un medicamento
+         public Farmaco obtenerDatosMedicamento(Scanner scanner, Farmacia farmacia, String codigo) {
+                  System.out.print("Ingrese la monodroga: ");
+                  String monodroga = scanner.nextLine();
+                  System.out.print("Ingrese el precio: ");
+                  double precio = scanner.nextDouble();
+                  System.out.print("Ingrese la dosis (mg): ");
+                  double dosis = scanner.nextDouble();
+                  System.out.print("Ingrese la cantidad: ");
+                  int cantidad = scanner.nextInt();
+                  scanner.nextLine(); // Limpiar buffer
 
-        private TipoAntidepresivo seleccionarTipoAntidepresivo(Scanner scanner) {
-            int tipo = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
-            switch (tipo) {
-                case 1:
-                    return TipoAntidepresivo.ISRS;
-                case 2:
-                    return TipoAntidepresivo.ISRN;
-                case 3:
-                    return TipoAntidepresivo.IMAO;
-                default:
-                    System.out.println("Selección inválida, se asignará ISRS por defecto.");
-                    return TipoAntidepresivo.ISRS;
-            }
-        }
+                  // Preguntar tipo de medicamento y crear según corresponda
+                  System.out.println("Seleccione el tipo de medicamento:");
+                  System.out.println("1. Antidepresivo");
+                  System.out.println("2. Ansiolitico");
+                  System.out.println("3. Antiepileptico");
+                  int tipoMedicamento = scanner.nextInt();
+                  scanner.nextLine(); // Limpiar buffer
 
-        private Dependencia seleccionarDependencia(Scanner scanner) {
-            int tipo = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
-            switch (tipo) {
-                case 1:
-                    return Dependencia.ALTA;
-                case 2:
-                    return Dependencia.MEDIA;
-                case 3:
-                    return Dependencia.BAJA;
-                default:
-                    System.out.println("Selección inválida, se asignará ALTA por defecto.");
-                    return Dependencia.ALTA;
-            }
-        }
+                  // Crear el medicamento según tipo
+                  Farmaco nuevoMedicamento = null;
+                  switch (tipoMedicamento) {
+                          case 1:
+                                   nuevoMedicamento = crearAntidepresivo(codigo, monodroga, precio, dosis, cantidad, scanner, farmacia);
+                                   break;
+                          case 2:
+                                   nuevoMedicamento = crearAnsiolitico(codigo, monodroga, precio, dosis, cantidad, scanner, farmacia);
+                                   break;
+                          case 3:
+                                   nuevoMedicamento = crearAntiepileptico(codigo, monodroga, precio, dosis, cantidad, scanner, farmacia);
+                                   break;
+                          default:
+                                   System.out.println("Tipo de medicamento no válido.");
+                                   break;
+                  }
 
-        private ClasificacionAntiepileptico seleccionarClasificacionAntiepileptico(Scanner scanner) {
-            int tipo = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
-            switch (tipo) {
-                case 1:
-                    return ClasificacionAntiepileptico.CARBOXAMIDAS;
-                case 2:
-                    return ClasificacionAntiepileptico.TRIAZINAS;
-                default:
-                    System.out.println("Selección inválida, se asignará CARBOXAMIDAS por defecto.");
-                    return ClasificacionAntiepileptico.CARBOXAMIDAS;
-            }
-        }
+                  return nuevoMedicamento;
+         }
 
-        private TipoReceta seleccionarTipoReceta(Scanner scanner) {
-            int tipo = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
-            switch (tipo) {
-                case 1:
-                    return TipoReceta.CONTROLADA;
-                case 2:
-                    return TipoReceta.NORMAL;
-                default:
-                    System.out.println("Selección inválida, se asignará CONTROLADA por defecto.");
-                    return TipoReceta.CONTROLADA;
-            }
-        }
 
-        // Método para mostrar todos los medicamentos en la farmacia
-        public void mostrarMedicamentos(Farmacia farmacia) {
-            if (farmacia.getMedicamentos().isEmpty()) {
-                System.out.println("No hay medicamentos en el inventario.");
-            } else {
-                System.out.println("Medicamentos en el inventario de la farmacia " + farmacia.getNombre() + ":");
-                for (Farmaco farmaco : farmacia.getMedicamentos()) {
-                    farmaco.mostrarInfo();
-                }
-            }
-        }
+         // Métodos para crear tipos específicos de medicamentos
+         private Farmaco crearAntidepresivo(String codigo, String monodroga, double precio, double dosis, int cantidad, Scanner scanner, Farmacia farmacia) {
+                  // Datos específicos para antidepresivo
+                  System.out.println("Seleccione el tipo de antidepresivo:");
+                  System.out.println("1. ISRS");
+                  System.out.println("2. ISRN");
+                  System.out.println("3. IMAO");
+                  TipoAntidepresivo tipoAntidepresivo = seleccionarTipoAntidepresivo(scanner);
+                  System.out.print("Ingrese el efecto secundario: ");
+                  String efectoSecundario = scanner.nextLine();
+
+                  return new Antidepresivo(codigo, monodroga, precio, dosis, cantidad, tipoAntidepresivo, efectoSecundario);
+         }
+
+         private Farmaco crearAnsiolitico(String codigo, String monodroga, double precio, double dosis, int cantidad, Scanner scanner, Farmacia farmacia) {
+                  // Datos específicos para ansiolítico
+                  System.out.println("Seleccione el nivel de dependencia:");
+                  System.out.println("1. ALTA");
+                  System.out.println("2. MEDIA");
+                  System.out.println("3. BAJA");      
+                  Dependencia dependencia = seleccionarDependencia(scanner);
+                  System.out.print("¿Es trazable? (true/false): ");
+                  boolean trazabilidad = scanner.nextBoolean();
+
+                  return new Ansiolitico(codigo, monodroga, precio, dosis, cantidad, dependencia, trazabilidad);
+         }   
+
+         private Farmaco crearAntiepileptico(String codigo, String monodroga, double precio, double dosis, int cantidad, Scanner scanner, Farmacia farmacia) {
+                  // Datos específicos para antiepiléptico
+                  System.out.println("Seleccione la clasificación de antiepiléptico:");
+                  System.out.println("1. CARBOXAMIDAS");
+                  System.out.println("2. TRIAZINAS");
+                  System.out.println("3. BENZODIAZEPINAS");
+                  System.out.println("4. BARBITURICO");
+                  System.out.println("5. BROMUROS");
+                  ClasificacionAntiepileptico clasificacion = seleccionarClasificacionAntiepileptico(scanner);
+                  System.out.println("Seleccione el tipo de receta:");
+                  System.out.println("1. CONTROLADA");
+                  System.out.println("2. NORMAL");
+                  TipoReceta tipoReceta = seleccionarTipoReceta(scanner);
+
+                  return new Antiepileptico(codigo, monodroga, precio, dosis, cantidad, clasificacion, tipoReceta);
+         }
+
+         // Métodos para seleccionar enumeraciones
+         private TipoAntidepresivo seleccionarTipoAntidepresivo(Scanner scanner) {
+                  int tipo = -1;
+                  boolean entradaValida = false;
+
+                  // Bucle hasta que se ingrese una opción válida
+                  while (!entradaValida) {
+                            try{
+                                     tipo = scanner.nextInt();
+                                     scanner.nextLine(); // Limpiar el buffer
+
+                                    if (tipo >= 1 && tipo <= 3) {
+                                             entradaValida = true;  // Opción válida, salir del bucle
+                                    } else {
+                                             System.out.println("Opción no válida. Debe ser un número entre 1 y 3.");
+                                    }
+                            } catch (InputMismatchException e) {
+                                    // Captura la excepción si se ingresa un dato no numérico
+                                    System.out.println("Por favor, ingrese un número válido.");
+                                    scanner.nextLine(); // Limpiar el buffer para que no quede el valor inválido
+                            }
+                 }
+
+                           // Devuelve el tipo de antidepresivo según la opción seleccionada
+                           switch (tipo) {
+                                   case 1:
+                                            return TipoAntidepresivo.ISRS;
+                                   case 2:
+                                            return TipoAntidepresivo.ISRN;
+                                   case 3:
+                                            return TipoAntidepresivo.ATIPICOS;
+                                   default:
+                          // Aunque este caso no debería alcanzarse debido a la validación anterior
+                                            System.out.println("Selección inválida, se asignará ISRS por defecto.");
+                                            return TipoAntidepresivo.ISRS;
+                           }
+                 }
+
+         private Dependencia seleccionarDependencia(Scanner scanner) {
+                  int tipo = scanner.nextInt();
+                  scanner.nextLine(); // Limpiar buffer
+                  switch (tipo) {
+                          case 1:
+                                   return Dependencia.ALTA;
+                          case 2:
+                                   return Dependencia.MEDIA;
+                          case 3:
+                                   return Dependencia.BAJA;
+                          default:
+                                   System.out.println("Selección inválida, se asignará ALTA por defecto.");
+                                   return Dependencia.ALTA;
+                  }
+         }
+
+         private ClasificacionAntiepileptico seleccionarClasificacionAntiepileptico(Scanner scanner) {
+                  int tipo = -1;
+                  boolean entradaValida = false;
+                  // Bucle hasta que se ingrese una opción válida
+                  while (!entradaValida) {
+                          try {
+                                   tipo = scanner.nextInt();
+                                   scanner.nextLine(); // Limpiar el buffer
+
+                           if (tipo >= 1 && tipo <= 5) {
+                                   entradaValida = true;  // Opción válida, salir del bucle
+                           } else {
+                                   System.out.println("Opción no válida. Debe ser un número entre 1 y 5.");
+                           }
+                           } catch (InputMismatchException e) {
+                                   // Captura la excepción si se ingresa un dato no numérico
+                                   System.out.println("Por favor, ingrese un número válido.");
+                                   scanner.nextLine(); // Limpiar el buffer para que no quede el valor inválido
+                          }
+                 } 
+                 // Devuelve la clasificación según el valor ingresado
+                  switch (tipo) {
+                          case 1:
+                                   return ClasificacionAntiepileptico.CARBOXAMIDAS;
+                          case 2:
+                                   return ClasificacionAntiepileptico.TRIAZINAS;
+                          case 3:
+                                   return ClasificacionAntiepileptico.BENZODIAZEPINAS;
+                          case 4:
+                                   return ClasificacionAntiepileptico.BARBITURICO;
+                          case 5:
+                                   return ClasificacionAntiepileptico.BROMUROS;
+                          default:
+                                   // Aunque este caso no debería alcanzarse debido a la validación anterior
+                                   return null;
+                          }
+         }
+
+         private TipoReceta seleccionarTipoReceta(Scanner scanner) {
+                  int tipo = -1;
+                  boolean entradaValida = false;
+
+                  // Bucle hasta que se ingrese una opción válida para el tipo de receta
+                  while (!entradaValida) {
+                          try {
+                                   tipo = scanner.nextInt();
+                                   scanner.nextLine(); // Limpiar el buffer
+
+                          if (tipo == 1) {
+                                   entradaValida = true;
+                                   return TipoReceta.CONTROLADA;
+                          } else if (tipo == 2) {
+                                   entradaValida = true;
+                                   return TipoReceta.NORMAL;
+                          } else {
+                                   System.out.println("Opción no válida. Debe ser 1 (CONTROLADA) o 2 (NORMAL).");
+                          }
+                          } catch (InputMismatchException e) {
+                                   // Captura la excepción si se ingresa un dato no numérico
+                                   System.out.println("Por favor, ingrese un número válido.");
+                                   scanner.nextLine(); // Limpiar el buffer
+                          }
+                 }
+                  return null;  // Este caso no debería alcanzarse debido a la validación
+         }
+         
+         // Método para mostrar todos los medicamentos en la farmacia
+         public void mostrarMedicamentos(Farmacia farmacia) {
+                  if (farmacia.getMedicamentos().isEmpty()) {
+                           System.out.println("No hay medicamentos en el inventario.");
+                  } else {
+                           System.out.println("Medicamentos en el inventario de la farmacia " + farmacia.getNombre() + ":");
+                           for (Farmaco farmaco : farmacia.getMedicamentos()) {
+                                   farmaco.mostrarInfo();
+                          }
+                  }
+         }       
 }
