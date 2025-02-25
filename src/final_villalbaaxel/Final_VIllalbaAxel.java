@@ -58,18 +58,22 @@ public class Final_VillalbaAxel {
         scanner.close();
     }
 
-    // Método para inicializar algunos medicamentos de ejemplo
-    private static void inicializarMedicamentos(Farmacia farmacia, FarmaciaGestion gestion) {
-        // Agregar medicamentos manualmente
-        Farmaco antidep = new Antidepresivo("Fluoxetina", 100.0, 20.0, 15, TipoAntidepresivo.ISRS, "Somnolencia");
-        farmacia.agregarMedicamento(antidep);
-        Farmaco ansiol = new Ansiolitico("Alprazolam", 150.0, 0.5, 20, Dependencia.ALTA, true);
-        farmacia.agregarMedicamento(ansiol);
-        Farmaco antiepileptico1 = new Antiepileptico("Valproato", 180.0, 200.0, 18, ClasificacionAntiepileptico.CARBOXAMIDAS, TipoReceta.CONTROLADA);
-        farmacia.agregarMedicamento(antiepileptico1);
-        Farmaco antiepileptico2 = new Antiepileptico("Lamotrigina", 220.0, 50.0, 25, ClasificacionAntiepileptico.TRIAZINAS, TipoReceta.CONTROLADA);
-        farmacia.agregarMedicamento(antiepileptico2);
-    }
+            // Método para inicializar algunos medicamentos de ejemplo
+        private static void inicializarMedicamentos(Farmacia farmacia, FarmaciaGestion gestion) {
+            // Agregar medicamentos manualmente
+            Farmaco antidep = new Antidepresivo("A001", "Fluoxetina", 100.0, 20.0, 15, TipoAntidepresivo.ISRS, "Somnolencia");
+            farmacia.agregarMedicamento(antidep);
+
+            Farmaco ansiol = new Ansiolitico("A002", "Alprazolam", 150.0, 0.5, 20, Dependencia.ALTA, true);
+            farmacia.agregarMedicamento(ansiol);
+
+            Farmaco antiepileptico1 = new Antiepileptico("A003", "Valproato", 180.0, 200.0, 18, ClasificacionAntiepileptico.CARBOXAMIDAS, TipoReceta.CONTROLADA);
+            farmacia.agregarMedicamento(antiepileptico1);
+
+            Farmaco antiepileptico2 = new Antiepileptico("A004", "Lamotrigina", 220.0, 50.0, 25, ClasificacionAntiepileptico.TRIAZINAS, TipoReceta.CONTROLADA);
+            farmacia.agregarMedicamento(antiepileptico2);
+        }
+
 
     // Método para crear un nuevo medicamento
     private static void crearMedicamento(Farmacia farmacia, FarmaciaGestion gestion, Scanner scanner) {
@@ -83,7 +87,7 @@ public class Final_VillalbaAxel {
             System.out.println("Este medicamento ya existe.");
         } else {
             // Pedir los datos del medicamento y crear
-            Farmaco nuevoMedicamento = gestion.obtenerDatosMedicamento(scanner);
+            Farmaco nuevoMedicamento = gestion.obtenerDatosMedicamento(scanner, farmacia);
             gestion.agregarMedicamento(farmacia, nuevoMedicamento);
         }
     }

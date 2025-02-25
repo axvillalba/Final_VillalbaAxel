@@ -1,42 +1,44 @@
-
 package final_villalbaaxel;
 
-public class Antidepresivo extends Farmaco {
+         public class Antidepresivo extends Farmaco {
+            private TipoAntidepresivo tipoAntidepresivo;
+            private String efectoSecundario;
 
-    private TipoAntidepresivo tipo;
-    private String efectoSecundario;
+            public Antidepresivo(String codigo, String monodroga, double precio, double dosis, int cantidad, 
+                                 TipoAntidepresivo tipoAntidepresivo, String efectoSecundario) {
+                super(codigo, monodroga, precio, dosis, cantidad);
+                this.setTipoAntidepresivo(tipoAntidepresivo);
+                this.setEfectoSecundario(efectoSecundario);
+            }
 
-    // Constructor utilizando setters
-    public Antidepresivo(String monodroga, double precio, double dosis, int cantidad, TipoAntidepresivo tipo, String efectoSecundario) {
-        super(monodroga, precio, dosis, cantidad); // Llamada al constructor de la clase base
-        this.setTipo(tipo); // Usar el setter para tipo
-        this.setEfectoSecundario(efectoSecundario); // Usar el setter para efectoSecundario
-    }
+            public void setTipoAntidepresivo(TipoAntidepresivo tipoAntidepresivo) {
+                if (tipoAntidepresivo != null) {
+                    this.tipoAntidepresivo = tipoAntidepresivo;
+                } else {
+                    throw new IllegalArgumentException("El tipo de antidepresivo no puede ser nulo.");
+                }
+            }
 
-    // Getter para tipo
-    public TipoAntidepresivo getTipo() {
-        return tipo;
-    }
+            public TipoAntidepresivo getTipoAntidepresivo() {
+                return tipoAntidepresivo;
+            }
 
-    // Setter para tipo
-    public void setTipo(TipoAntidepresivo tipo) {
-        this.tipo = tipo;
-    }
+            public void setEfectoSecundario(String efectoSecundario) {
+                if (efectoSecundario != null && !efectoSecundario.trim().isEmpty()) {
+                    this.efectoSecundario = efectoSecundario;
+                } else {
+                    throw new IllegalArgumentException("El efecto secundario no puede estar vacío.");
+                }
+            }
 
-    // Getter para efectoSecundario
-    public String getEfectoSecundario() {
-        return efectoSecundario;
-    }
+            public String getEfectoSecundario() {
+                return efectoSecundario;
+            }
 
-    // Setter para efectoSecundario
-    public void setEfectoSecundario(String efectoSecundario) {
-        this.efectoSecundario = efectoSecundario;
-    }
-
-    @Override
-    public void mostrarInfo() {
-        System.out.println("Antidepresivo: Monodroga: " + monodroga + " - Precio: " + precio + " - Dosis: " + dosis + "mg - Cantidad: " + cantidad);
-        System.out.println("Tipo: " + tipo + " - Efecto Secundario: " + efectoSecundario);
-    }
+            @Override
+            public void mostrarInfo() {
+                System.out.println("Antidepresivo: " + getMonodroga() + ", Tipo: " + tipoAntidepresivo + 
+                                   ", Efecto Secundario: " + efectoSecundario + 
+                                   ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
+            }
 }
-
