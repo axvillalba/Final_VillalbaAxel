@@ -11,7 +11,7 @@ package final_villalbaaxel;
 
 public enum TipoAntidepresivo {
     
-        ISRS, ISRN, IMAO;
+        ISRS, ISRN, ATIPICOS;
                
     }
     
