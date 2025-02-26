@@ -1,7 +1,6 @@
 package final_villalbaaxel;
-
+import java.io.*;
 import java.util.*;
-import javax.xml.transform.sax.SAXSource;
 
 public class FarmaciaGestion {
 
@@ -368,4 +367,80 @@ public class FarmaciaGestion {
             System.out.println("Error al mostrar medicamentos: " + e.getMessage());
         }
     }
+
+    public static void serializar(ArrayList<Farmaco> listaFarmacos, String nombreArchivo) {
+        try (FileWriter writer = new FileWriter(nombreArchivo)) {
+            // Escribir cada farmaco con su tipo y sus atributos adicionales
+            for (Farmaco farmaco : listaFarmacos) {
+                if (farmaco instanceof Antiepileptico) {
+                    Antiepileptico antiepileptico = (Antiepileptico) farmaco;
+                    writer.write("Antiepileptico," + farmaco.getCodigo() + "," + farmaco.getMonodroga() + ","
+                            + farmaco.getPrecio() + "," + farmaco.getDosis() + "," + farmaco.getCantidad() + ","
+                            + antiepileptico.getClasificacion().name() + "," + antiepileptico.getTipoReceta().name() + "\n");
+                } else if (farmaco instanceof Antidepresivo) {
+                    Antidepresivo antidepresivo = (Antidepresivo) farmaco;
+                    writer.write("Antidepresivo," + farmaco.getCodigo() + "," + farmaco.getMonodroga() + ","
+                            + farmaco.getPrecio() + "," + farmaco.getDosis() + "," + farmaco.getCantidad() + ","
+                            + antidepresivo.getEfectoSecundario() + "," + antidepresivo.getTipoAntidepresivo().name() + "\n");
+                } else if (farmaco instanceof Ansiolitico) {
+                    Ansiolitico ansiolito = (Ansiolitico) farmaco;
+                    writer.write("Ansiolitico," + farmaco.getCodigo() + "," + farmaco.getMonodroga() + ","
+                            + farmaco.getPrecio() + "," + farmaco.getDosis() + "," + farmaco.getCantidad() + ","
+                            + ansiolito.getDependencia() + "," + ansiolito.isTrazabilidad() + "\n");
+                }
+            }
+            System.out.println("Datos serializados correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al serializar los datos: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Farmaco> deserializar(String nombreArchivo) {
+        ArrayList<Farmaco> listaFarmacos = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                // Separar la línea por comas
+                String[] datos = linea.split(",");
+
+                if (datos.length == 8) {  // Esperamos 8 elementos (tipo, codigo, monodroga, precio, dosis, cantidad, atributos específicos)
+                    String tipo = datos[0];  // El primer campo es el tipo de medicamento
+                    String codigo = datos[1];
+                    String monodroga = datos[2];
+                    double precio = Double.parseDouble(datos[3]);
+                    double dosis = Double.parseDouble(datos[4]);
+                    int cantidad = Integer.parseInt(datos[5]);
+
+                    // Crear el objeto adecuado según el tipo
+                    if (tipo.equals("Antiepileptico")) {
+                        String clasificacion = datos[6];
+                        String tipoReceta = datos[7];
+                        // Convertir los String a valores de enum
+                        ClasificacionAntiepileptico clasifEnum = ClasificacionAntiepileptico.valueOf(clasificacion);
+                        TipoReceta tipoRecetaEnum = TipoReceta.valueOf(tipoReceta);
+                        listaFarmacos.add(new Antiepileptico(codigo, monodroga, precio, dosis, cantidad, clasifEnum, tipoRecetaEnum));
+                    } else if (tipo.equals("Antidepresivo")) {
+                        String efectoSecundario = datos[6];
+                        String tipoAntidepresivo = datos[7];
+                        // Convertir los String a valores de enum
+                        TipoAntidepresivo tipoAntidepresivoEnum = TipoAntidepresivo.valueOf(tipoAntidepresivo);
+                        listaFarmacos.add(new Antidepresivo(codigo, monodroga, precio, dosis, cantidad, tipoAntidepresivoEnum, efectoSecundario));
+                    } else if (tipo.equals("Ansiolitico")) {
+                        String dependencia = datos[6];
+                        Boolean trazabilidad = Boolean.parseBoolean(datos[7]);
+                        //Convertir los String a valores de enum
+                        Dependencia dependenciaEnum = Dependencia.valueOf(dependencia);
+
+                        listaFarmacos.add(new Ansiolitico(codigo, monodroga, precio, dosis, cantidad, dependenciaEnum, trazabilidad));
+                    }
+                }
+            }
+            System.out.println("Datos deserializados correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al deserializar los datos: " + e.getMessage());
+        }
+        return listaFarmacos;
+    }
 }
+
+   

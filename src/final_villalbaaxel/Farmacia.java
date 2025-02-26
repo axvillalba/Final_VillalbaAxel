@@ -9,7 +9,7 @@ public class Farmacia {
 
     // Constructor de la clase Farmacia usando los setters
     public Farmacia(String nombre) {
-        this.setNombre(nombre);  // Usar el setter para el atributo 'nombre'
+        this.setNombre(nombre);  
         this.farmacos = new ArrayList<>();  // El setter no es necesario para la lista, ya que se inicializa directamente
     }
 

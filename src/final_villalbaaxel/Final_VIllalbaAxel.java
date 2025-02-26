@@ -1,5 +1,5 @@
 package final_villalbaaxel;
-
+import java.util.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -8,13 +8,20 @@ public class Final_VIllalbaAxel {
     public static void main(String[] args) {
         // Crear una farmacia con un nombre
         Farmacia farmacia = new Farmacia("Farmacia UTN Salud");
-
+        String path = "farmacos.txt";
         // Crear un objeto FarmaciaGestion para gestionar la farmacia
         FarmaciaGestion gestion = new FarmaciaGestion();
+        // Deserializar los medicamentos al iniciar el programa
+        ArrayList<Farmaco> farmacos = gestion.deserializar(path);
+        for (Farmaco farmaco : farmacos) {
+            farmacia.agregarMedicamento(farmaco);  // Agregar los medicamentos deserializados a la farmacia
+        }
+
+    
         Scanner scanner = new Scanner(System.in);
         int opcion = -1;
-        // Inicializar medicamentos predeterminados
-        inicializarMedicamentos(farmacia, gestion);
+        // Inicializar medicamentos predeterminados para probar 
+        //inicializarMedicamentos(farmacia, gestion);
         // Menú de gestión de productos
         do {
             // Mostrar el menú
@@ -58,7 +65,7 @@ public class Final_VIllalbaAxel {
                 case 4: // LISTAR
                     listarMedicamentos(farmacia, gestion);
                     break;
-                case 5: // CONSULTAR
+                case 5: // CONSULTAR4
                     consultarMedicamento(farmacia, gestion, scanner);
                     break;
                 case 0: // Salir
@@ -69,11 +76,15 @@ public class Final_VIllalbaAxel {
                     break;
             }
         } while (opcion != 0); // Continuar hasta que el usuario elija salir
+        
+        // Serializar los medicamentos cuando el programa finaliza
+         gestion.serializar(farmacia.getMedicamentos(), path);  // Guardar los medicamentos en el archivo
+
 
         scanner.close();
     }
-
-    // Método para inicializar algunos medicamentos de ejemplo
+ /* 
+// Método para inicializar algunos medicamentos de ejemplo -- Para probar Funcionabilidad del programa
     private static void inicializarMedicamentos(Farmacia farmacia, FarmaciaGestion gestion) {
         // Agregar medicamentos manualmente
         Farmaco antidep = new Antidepresivo("AD001", "Fluoxetina", 100.0, 20.0, 15, TipoAntidepresivo.ISRS, "Somnolencia");
@@ -85,7 +96,7 @@ public class Final_VIllalbaAxel {
         Farmaco antiepileptico2 = new Antiepileptico("AE004", "Lamotrigina", 220.0, 50.0, 25, ClasificacionAntiepileptico.TRIAZINAS, TipoReceta.CONTROLADA);
         farmacia.agregarMedicamento(antiepileptico2);
     }
-
+*/
     // Método para crear un nuevo medicamento
     private static void crearMedicamento(Farmacia farmacia, FarmaciaGestion gestion, Scanner scanner) {
         System.out.println("\n--- CREAR MEDICAMENTO ---");
