@@ -52,7 +52,7 @@ Se ha implementado un sistema robusto de validación para garantizar que los usu
 Para manejar errores introducidos por el usuario o problemas de entrada/salida, se ha implementado un sistema de manejo de excepciones utilizando bloques `try-catch`. Esto asegura que el programa no se rompa ante entradas no válidas o problemas con la lectura/escritura de archivos.
 
 ## **Instrucciones para Ejecutar el Proyecto**
-d
+
 ### **Requisitos**
 
 - **Java 8 o superior**.
