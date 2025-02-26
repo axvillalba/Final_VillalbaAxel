@@ -52,7 +52,7 @@ Se ha implementado un sistema robusto de validación para garantizar que los usu
 Para manejar errores introducidos por el usuario o problemas de entrada/salida, se ha implementado un sistema de manejo de excepciones utilizando bloques `try-catch`. Esto asegura que el programa no se rompa ante entradas no válidas o problemas con la lectura/escritura de archivos.
 
 ## **Instrucciones para Ejecutar el Proyecto**
-
+d
 ### **Requisitos**
 
 - **Java 8 o superior**.
@@ -64,3 +64,12 @@ Para manejar errores introducidos por el usuario o problemas de entrada/salida, 
 
    ```bash
    git clone https://github.com/axvillalba/Final_VillalbaAxel.git
+
+
+## **Imagenes del programa**
+![Inicio y Crear](https://github.com/axvillalba/Final_VillalbaAxel/blob/master/screenshots/1.jpg)
+![Listar](https://github.com/axvillalba/Final_VillalbaAxel/blob/master/screenshots/2.jpg)
+![Eliminar](https://github.com/axvillalba/Final_VillalbaAxel/blob/master/screenshots/3.jpg)
+![Modificar](https://github.com/axvillalba/Final_VillalbaAxel/blob/master/screenshots/4.jpg)
+![Final](https://github.com/axvillalba/Final_VillalbaAxel/blob/master/screenshots/5.png)
+![archivo .txt](https://github.com/axvillalba/Final_VillalbaAxel/blob/master/screenshots/5.jpg)
