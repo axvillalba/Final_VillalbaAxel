@@ -4,6 +4,6 @@
  */
 package final_villalbaaxel;
 
-    public enum TipoReceta {
-        CONTROLADA, NORMAL;
-    }
+public enum TipoReceta {
+    CONTROLADA, NORMAL;
+}

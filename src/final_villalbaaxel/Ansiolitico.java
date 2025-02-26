@@ -1,40 +1,42 @@
 package final_villalbaaxel;
 
 public class Ansiolitico extends Farmaco {
-            private Dependencia dependencia;
-            private boolean trazabilidad;
 
-            public Ansiolitico(String codigo, String monodroga, double precio, double dosis, int cantidad, 
-                               Dependencia dependencia, boolean trazabilidad) {
-                super(codigo, monodroga, precio, dosis, cantidad);
-                this.setDependencia(dependencia);
-                this.setTrazabilidad(trazabilidad);
-            }
+    private Dependencia dependencia;
+    private boolean trazabilidad;
 
-            public void setDependencia(Dependencia dependencia) {
-                if (dependencia != null) {
-                    this.dependencia = dependencia;
-                } else {
-                    throw new IllegalArgumentException("La dependencia no puede ser nula.");
-                }
-            }
+    public Ansiolitico(String codigo, String monodroga, double precio, double dosis, int cantidad,
+            Dependencia dependencia, boolean trazabilidad) {
+        super(codigo, monodroga, precio, dosis, cantidad);
+        this.setDependencia(dependencia);
+        this.setTrazabilidad(trazabilidad);
+    }
 
-            public Dependencia getDependencia() {
-                return dependencia;
-            }
+    public void setDependencia(Dependencia dependencia) {
+        if (dependencia != null) {
+            this.dependencia = dependencia;
+        } else {
+            throw new IllegalArgumentException("La dependencia no puede ser nula.");
+        }
+    }
 
-            public void setTrazabilidad(boolean trazabilidad) {
-                this.trazabilidad = trazabilidad;
-            }
+    public Dependencia getDependencia() {
+        return dependencia;
+    }
 
-            public boolean isTrazabilidad() {
-                return trazabilidad;
-            }
+    public void setTrazabilidad(boolean trazabilidad) {
+        this.trazabilidad = trazabilidad;
+    }
 
-            @Override
-            public void mostrarInfo() {
-                System.out.println("Ansiolítico: " + getMonodroga() + ", Dependencia: " + dependencia + 
-                                   ", Trazabilidad: " + (trazabilidad ? "Sí" : "No") + 
-                                   ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
-            }
+    public boolean isTrazabilidad() {
+        return trazabilidad;
+    }
+
+@Override
+public void mostrarInfo() {
+    System.out.println("Ansiolitico: " + getMonodroga() + " (Codigo: " + getCodigo() + "), Dependencia: " + dependencia
+            + ", Trazabilidad: " + (trazabilidad ? "Sí" : "No")
+            + ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
+}
+
 }

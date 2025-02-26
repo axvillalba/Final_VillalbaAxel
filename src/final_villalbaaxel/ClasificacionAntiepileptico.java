@@ -4,6 +4,6 @@
  */
 package final_villalbaaxel;
 
-    public enum ClasificacionAntiepileptico {
-        CARBOXAMIDAS,TRIAZINAS,BENZODIAZEPINAS,BARBITURICO,BROMUROS;
-    }
+public enum ClasificacionAntiepileptico {
+    CARBOXAMIDAS, TRIAZINAS, BENZODIAZEPINAS, BARBITURICO, BROMUROS;
+}

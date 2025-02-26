@@ -4,6 +4,6 @@
  */
 package final_villalbaaxel;
 
-    public enum Dependencia {
-        BAJA, MEDIA, ALTA;
-    }
+public enum Dependencia {
+    BAJA, MEDIA, ALTA;
+}
