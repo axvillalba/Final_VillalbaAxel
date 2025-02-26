@@ -32,7 +32,7 @@ public class Final_VIllalbaAxel {
             System.out.println("4. Listar Medicamentos");
             System.out.println("5. Consultar Medicamento");
             System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Seleccione una opcion: ");
 
             // Validar que la entrada sea un número entero                        
             boolean entradaValida = false;
@@ -44,10 +44,10 @@ public class Final_VIllalbaAxel {
                     if (opcion >= 0 && opcion <= 5) {
                         entradaValida = true;  // Salir del bucle si la opción es válida
                     } else {
-                        System.out.println("Opción no válida. Intente de nuevo.");
+                        System.out.println("Opcion no valida. Intente de nuevo.");
                     }
                 } catch (InputMismatchException e) { //se produce cuando el tipo de dato que ingresa el usuario no coincide con el que espera el program
-                    System.out.println("Por favor ingrese un valor válido.");
+                    System.out.println("Por favor ingrese un valor valido.");
                     scanner.nextLine(); // Limpiar el buffer para que no quede el valor no válido
                 }
             }
@@ -72,7 +72,7 @@ public class Final_VIllalbaAxel {
                     System.out.println("¡Hasta luego!");
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    System.out.println("Opcion no valida. Intente de nuevo.");
                     break;
             }
         } while (opcion != 0); // Continuar hasta que el usuario elija salir
@@ -83,7 +83,7 @@ public class Final_VIllalbaAxel {
 
         scanner.close();
     }
- /* 
+ /*
 // Método para inicializar algunos medicamentos de ejemplo -- Para probar Funcionabilidad del programa
     private static void inicializarMedicamentos(Farmacia farmacia, FarmaciaGestion gestion) {
         // Agregar medicamentos manualmente
@@ -114,13 +114,13 @@ public class Final_VIllalbaAxel {
     private static String obtenerCodigoUnico(Scanner scanner, Farmacia farmacia) {
         String codigo;
         while (true) {
-            System.out.print("Ingrese el código del medicamento: ");
+            System.out.print("Ingrese el codigo del medicamento: ");
             codigo = scanner.nextLine();
 
             if (!farmacia.codigoExiste(codigo)) {
                 break;  // El código es único, salir del bucle
             } else {
-                System.out.println("Error: El código " + codigo + " ya está en uso. Ingrese un código único.");
+                System.out.println("Error: El codigo " + codigo + " ya esta en uso. Ingrese un codigo unico.");
             }
         }
         return codigo;
@@ -129,7 +129,7 @@ public class Final_VIllalbaAxel {
     // Método para modificar un medicamento
     private static void modificarMedicamento(Farmacia farmacia, FarmaciaGestion gestion, Scanner scanner) {
         System.out.println("\n--- MODIFICAR MEDICAMENTO ---");
-        System.out.print("Ingrese el código del medicamento a modificar: ");
+        System.out.print("Ingrese el codigo del medicamento a modificar: ");
         String codigoModificar = scanner.nextLine();
         gestion.modificarMedicamento(farmacia, codigoModificar);
     }
@@ -137,7 +137,7 @@ public class Final_VIllalbaAxel {
     // Método para eliminar un medicamento
     private static void eliminarMedicamento(Farmacia farmacia, FarmaciaGestion gestion, Scanner scanner) {
         System.out.println("\n--- ELIMINAR MEDICAMENTO ---");
-        System.out.print("Ingrese el código del medicamento a eliminar: ");
+        System.out.print("Ingrese el codigo del medicamento a eliminar: ");
         String codigoEliminar = scanner.nextLine();
         gestion.eliminarMedicamento(farmacia, codigoEliminar);
     }
@@ -151,7 +151,7 @@ public class Final_VIllalbaAxel {
     // Método para consultar un medicamento
     private static void consultarMedicamento(Farmacia farmacia, FarmaciaGestion gestion, Scanner scanner) {
         System.out.println("\n--- CONSULTAR MEDICAMENTO ---");
-        System.out.print("Ingrese el código del medicamento a consultar: ");
+        System.out.print("Ingrese el codigo del medicamento a consultar: ");
         String codigoConsultar = scanner.nextLine();
         gestion.consultarMedicamento(farmacia, codigoConsultar);
     }

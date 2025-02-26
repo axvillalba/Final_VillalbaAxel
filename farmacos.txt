@@ -1,0 +1,5 @@
+Inventario Farmacia UTN Salud
+-----------------------------------------------------
+Tipo, Codigo, Monodroga, Precio, Dosis, Cantidad, Atributos Específicos
+Ansiolitico,A012,Clonazepam,8500.0,2.0,40,MEDIA,false
+Antiepileptico,AE004,Lamotrigina,15000.0,100.0,10,TRIAZINAS,NORMAL

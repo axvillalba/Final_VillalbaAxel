@@ -16,7 +16,7 @@ public class Antiepileptico extends Farmaco {
         if (clasificacion != null) {
             this.clasificacion = clasificacion;
         } else {
-            throw new IllegalArgumentException("La clasificación no puede ser nula.");
+            throw new IllegalArgumentException("La clasificacion no puede ser nula.");
         }
     }
 
@@ -38,7 +38,7 @@ public class Antiepileptico extends Farmaco {
 
     @Override
     public void mostrarInfo() {
-        System.out.println("Antiepileptico: " + getMonodroga() + "(Codigo: " + getCodigo() + "), Clasificación: " + clasificacion
+        System.out.println("Antiepileptico: " + getMonodroga() + "(Codigo: " + getCodigo() + "), Clasificacion: " + clasificacion
                 + ", Tipo de receta: " + tipoReceta
                 + ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
     }

@@ -57,7 +57,7 @@ public class FarmaciaGestion {
                 farmacia.agregarMedicamento(nuevoMedicamento);
                 System.out.println("Medicamento modificado exitosamente.");
             } else {
-                System.out.println("Medicamento con código " + codigoModificar + " no encontrado.");
+                System.out.println("Medicamento con codigo " + codigoModificar + " no encontrado.");
             }
         } catch (Exception e) {
             System.out.println("Error al modificar el medicamento: " + e.getMessage());
@@ -103,7 +103,7 @@ public class FarmaciaGestion {
                 System.out.println("Consulta del medicamento: ");
                 medicamento.mostrarInfo();
             } else {
-                System.out.println("Medicamento con código " + codigoConsultar + " no encontrado.");
+                System.out.println("Medicamento con codigo " + codigoConsultar + " no encontrado.");
             }
         } catch (Exception e) {
             System.out.println("Error al consultar medicamento: " + e.getMessage());
@@ -144,7 +144,7 @@ public class FarmaciaGestion {
                     nuevoMedicamento = crearAntiepileptico(codigo, monodroga, precio, dosis, cantidad, scanner, farmacia);
                     break;
                 default:
-                    System.out.println("Tipo de medicamento no válido.");
+                    System.out.println("Tipo de medicamento no valido.");
                     break;
             }
             return nuevoMedicamento;
@@ -370,7 +370,14 @@ public class FarmaciaGestion {
 
     public static void serializar(ArrayList<Farmaco> listaFarmacos, String nombreArchivo) {
         try (FileWriter writer = new FileWriter(nombreArchivo)) {
-            // Escribir cada farmaco con su tipo y sus atributos adicionales
+            // Escribir el encabezado descriptivo
+            writer.write("Inventario Farmacia UTN Salud\n");
+            writer.write("-----------------------------------------------------\n");
+
+            // Descripción de cada campo
+            writer.write("Tipo, Codigo, Monodroga, Precio, Dosis, Cantidad, Atributos Específicos\n");
+
+            // Escribir cada fármaco con su tipo y sus atributos adicionales
             for (Farmaco farmaco : listaFarmacos) {
                 if (farmaco instanceof Antiepileptico) {
                     Antiepileptico antiepileptico = (Antiepileptico) farmaco;
@@ -386,7 +393,7 @@ public class FarmaciaGestion {
                     Ansiolitico ansiolito = (Ansiolitico) farmaco;
                     writer.write("Ansiolitico," + farmaco.getCodigo() + "," + farmaco.getMonodroga() + ","
                             + farmaco.getPrecio() + "," + farmaco.getDosis() + "," + farmaco.getCantidad() + ","
-                            + ansiolito.getDependencia() + "," + ansiolito.isTrazabilidad() + "\n");
+                            + ansiolito.getDependencia().name() + "," + ansiolito.isTrazabilidad() + "\n");
                 }
             }
             System.out.println("Datos serializados correctamente.");
@@ -399,6 +406,12 @@ public class FarmaciaGestion {
         ArrayList<Farmaco> listaFarmacos = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
+
+            // Saltar las dos primeras líneas (encabezado y descripción)
+            reader.readLine(); // "Inventario Farmacia UTN Salud"
+            reader.readLine(); // "-----------------------------------------------------"
+            reader.readLine(); // "Tipo, Codigo, Monodroga, Precio, Dosis, Cantidad, Atributos Específicos"
+
             while ((linea = reader.readLine()) != null) {
                 // Separar la línea por comas
                 String[] datos = linea.split(",");
@@ -441,6 +454,7 @@ public class FarmaciaGestion {
         }
         return listaFarmacos;
     }
+
 }
 
    

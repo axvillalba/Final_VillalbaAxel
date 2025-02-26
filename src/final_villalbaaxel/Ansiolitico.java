@@ -35,7 +35,7 @@ public class Ansiolitico extends Farmaco {
 @Override
 public void mostrarInfo() {
     System.out.println("Ansiolitico: " + getMonodroga() + " (Codigo: " + getCodigo() + "), Dependencia: " + dependencia
-            + ", Trazabilidad: " + (trazabilidad ? "Sí" : "No")
+            + ", Trazabilidad: " + (trazabilidad ? "Si" : "No")
             + ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
 }
 
