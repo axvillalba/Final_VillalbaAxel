@@ -1,6 +1,6 @@
 package final_villalbaaxel;
 
-public class Ansiolitico extends Farmaco {
+public class Ansiolitico extends Farmaco implements InformacionDetallada {
 
     private Dependencia dependencia;
     private boolean trazabilidad;
@@ -8,6 +8,9 @@ public class Ansiolitico extends Farmaco {
     public Ansiolitico(String codigo, String monodroga, double precio, double dosis, int cantidad,
             Dependencia dependencia, boolean trazabilidad) {
         super(codigo, monodroga, precio, dosis, cantidad);
+        if (dependencia == null) {
+            throw new IllegalArgumentException("Dependencia no puede ser nula.");
+        }
         this.setDependencia(dependencia);
         this.setTrazabilidad(trazabilidad);
     }
@@ -32,11 +35,14 @@ public class Ansiolitico extends Farmaco {
         return trazabilidad;
     }
 
-@Override
-public void mostrarInfo() {
-    System.out.println("Ansiolitico: " + getMonodroga() + " (Codigo: " + getCodigo() + "), Dependencia: " + dependencia
-            + ", Trazabilidad: " + (trazabilidad ? "Si" : "No")
-            + ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
-}
+    @Override
+    public void mostrarInfo() {
+        System.out.println("Ansiolítico: " + getMonodroga());
+    }
 
+    @Override
+    public void mostrarInfoDetallada() {
+        System.out.println("Ansiolítico: " + getMonodroga() + ", Dependencia: " + dependencia
+                + ", Trazabilidad: " + (trazabilidad ? "Sí" : "No"));
+    }
 }

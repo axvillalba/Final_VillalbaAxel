@@ -1,7 +1,7 @@
-package final_villalbaaxel;
-
-public abstract class Farmaco {
-
+package final_villalbaaxel; 
+import java.io.Serializable;
+public abstract class Farmaco implements Serializable{
+   
     private String codigo;
     private String monodroga;
     private double precio;

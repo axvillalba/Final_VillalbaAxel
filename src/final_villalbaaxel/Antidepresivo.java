@@ -1,15 +1,17 @@
 package final_villalbaaxel;
 
-public class Antidepresivo extends Farmaco {
+public class Antidepresivo extends Farmaco implements InformacionDetallada {
 
     private TipoAntidepresivo tipoAntidepresivo;
     private String efectoSecundario;
 
     public Antidepresivo(String codigo, String monodroga, double precio, double dosis, int cantidad,
-            TipoAntidepresivo tipoAntidepresivo, String efectoSecundario) {
+                         TipoAntidepresivo tipoAntidepresivo, String efectoSecundario) {
         super(codigo, monodroga, precio, dosis, cantidad);
-        this.setTipoAntidepresivo(tipoAntidepresivo);
-        this.setEfectoSecundario(efectoSecundario);
+        if (tipoAntidepresivo == null) throw new IllegalArgumentException("Tipo no puede ser nulo.");
+        if (efectoSecundario == null || efectoSecundario.isBlank()) throw new IllegalArgumentException("Efecto no válido.");
+        this.tipoAntidepresivo = tipoAntidepresivo;
+        this.efectoSecundario = efectoSecundario;
     }
 
     public void setTipoAntidepresivo(TipoAntidepresivo tipoAntidepresivo) {
@@ -36,10 +38,15 @@ public class Antidepresivo extends Farmaco {
         return efectoSecundario;
     }
 
-    @Override
-    public void mostrarInfo() {
-        System.out.println("Antidepresivo: " + getMonodroga() + "(Codigo: " + getCodigo() + "), Tipo: " + tipoAntidepresivo
-                + ", Efecto Secundario: " + efectoSecundario
-                + ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
-    }
+ @Override
+public void mostrarInfo() {
+System.out.println("Antidepresivo: " + getMonodroga());
+}
+
+
+@Override
+public void mostrarInfoDetallada() {
+System.out.println("Antidepresivo: " + getMonodroga() + ", Tipo: " + tipoAntidepresivo +
+", Efecto Secundario: " + efectoSecundario);
+}
 }

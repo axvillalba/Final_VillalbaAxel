@@ -1,6 +1,6 @@
-    package final_villalbaaxel;
+package final_villalbaaxel;
 
-public class Antiepileptico extends Farmaco {
+public class Antiepileptico extends Farmaco implements InformacionDetallada {
 
     private ClasificacionAntiepileptico clasificacion;
     private TipoReceta tipoReceta;
@@ -8,8 +8,14 @@ public class Antiepileptico extends Farmaco {
     public Antiepileptico(String codigo, String monodroga, double precio, double dosis, int cantidad,
             ClasificacionAntiepileptico clasificacion, TipoReceta tipoReceta) {
         super(codigo, monodroga, precio, dosis, cantidad);
-        this.setClasificacion(clasificacion);
-        this.setTipoReceta(tipoReceta);
+        if (clasificacion == null) {
+            throw new IllegalArgumentException("Clasificación no puede ser nula.");
+        }
+        if (tipoReceta == null) {
+            throw new IllegalArgumentException("Tipo de receta no puede ser nulo.");
+        }
+        this.clasificacion = clasificacion;
+        this.tipoReceta = tipoReceta;
     }
 
     public void setClasificacion(ClasificacionAntiepileptico clasificacion) {
@@ -38,8 +44,12 @@ public class Antiepileptico extends Farmaco {
 
     @Override
     public void mostrarInfo() {
-        System.out.println("Antiepileptico: " + getMonodroga() + "(Codigo: " + getCodigo() + "), Clasificacion: " + clasificacion
-                + ", Tipo de receta: " + tipoReceta
-                + ", Precio: $" + getPrecio() + ", Dosis: " + getDosis() + "mg, Cantidad: " + getCantidad());
+        System.out.println("Antiepiléptico: " + getMonodroga());
+    }
+
+    @Override
+    public void mostrarInfoDetallada() {
+        System.out.println("Antiepiléptico: " + getMonodroga() + ", Clasificación: " + clasificacion
+                + ", Tipo de receta: " + tipoReceta);
     }
 }
